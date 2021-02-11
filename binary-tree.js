@@ -24,7 +24,7 @@ class BinaryTree {
       this.minDepth(current.right)
     ) + 1;
 
-    // NOTE: this works only because of test tree setup
+    // NOTE: below works only because of test tree setup
     // messier fn signature with current = this.root, count = this.root? 1 : 0
     // // add a count for the child
     // count++;
@@ -77,6 +77,8 @@ class BinaryTree {
     );
 
     return minVal === 0? null : minVal;
+
+    // TODO: redo with stack, with queue class
   }
 
   /** Further study!
