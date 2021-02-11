@@ -17,7 +17,23 @@ class BinaryTree {
    * the length of the shortest path from the root to a leaf. */
 
   minDepth() {
+    let count = 0;
 
+    let toVisitStack = [this.root];
+
+    while (toVisitStack.length) {
+      let current = toVisitStack.pop();
+
+      if (!current) {
+        return count;
+      } else {
+        count++;
+        if (!current.left && !current.right) return count;
+        toVisitStack.push(current.left);
+        // TODO: need to pick the shorter left or right
+        // toVisitStack.push(current.right);
+      }
+    }
   }
 
   /** maxDepth(): return the maximum depth of the tree -- that is,
@@ -68,7 +84,7 @@ class BinaryTree {
    * of two nodes in a binary tree. */
 
   lowestCommonAncestor(node1, node2) {
-    
+
   }
 }
 
