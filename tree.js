@@ -16,7 +16,7 @@ class Tree {
 
   sumValues(current = this.root, sum = this.root ? this.root.val : 0) {
     // Solve with recursion:
-    if (!current) return 0;
+    if (!current) return sum;
 
     // hidden base case: go through all the children
     for (let child of current.children) {
@@ -50,24 +50,19 @@ class Tree {
 
   /** countEvens(): count all of the nodes in the tree with even values. */
 
-  countEvens() {
+  countEvens(current = this.root, count = 0) {
     // Solved with recursion:
-    let count = 0;
+    if (!current) return count;
 
-    if (!this.root) return 0;
+    if (current.val % 2 === 0) count++;
 
-    if (this.root.val % 2 === 0) count++;
-
-    function _countEvens(current) {
-      for (let child of current.children) {
-        if (child.val % 2 === 0) count++;
-        if (child.children.length > 0) {
-          _countEvens(child)
-        }
+    for (let child of current.children) {
+      if (child.children.length > 0) {
+        return this.countEvens(child, count);
       }
+      if (child.val % 2 === 0) count++;
     }
 
-    _countEvens(this.root);
     return count;
 
     // Solved with iteration:
@@ -91,24 +86,19 @@ class Tree {
   /** numGreater(lowerBound): return a count of the number of nodes
    * whose value is greater than lowerBound. */
 
-  numGreater(lowerBound) {
+  numGreater(lowerBound, current = this.root, count = 0) {
     // Solved with recursion:
-    let count = 0;
+    if (!current) return 0;
 
-    if (!this.root) return 0;
+    if (current.val > lowerBound) count++;
 
-    if (this.root.val > lowerBound) count++;
-
-    function _numGreater(current) {
-      for (let child of current.children) {
-        if (child.val > lowerBound) count++;
-        if (child.children.length > 0) {
-          _numGreater(child);
-        }
+    for (let child of current.children) {
+      if (child.children.length > 0) {
+        return this.numGreater(lowerBound, child, count);
       }
+      if (child.val > lowerBound) count++;
     }
 
-    _numGreater(this.root);
     return count;
 
     // Solved with iteration:
