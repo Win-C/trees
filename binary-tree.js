@@ -17,36 +17,52 @@ class BinaryTree {
    * the length of the shortest path from the root to a leaf. */
 
   minDepth(current = this.root) {
+    // Solved with recursion
     if (!current) return 0;
 
     return Math.min(
       this.minDepth(current.left),
       this.minDepth(current.right)
     ) + 1;
+    
+    // TODO: Solved with stack iteration
+    if (!this.root) return 0;
 
-    // NOTE: below works only because of test tree setup
-    // messier fn signature with current = this.root, count = this.root? 1 : 0
-    // // add a count for the child
-    // count++;
+    let stack = [this.root];
+    let minDepth = 1;
+    let leftDepth = 0;
+    let rightDepth = 0;
+    
+    while (stack.length){
+      minDepth += Math.min(leftDepth, rightDepth);
+      let node = stack.pop();
 
-    // // recurse left and get min count, if possible
-    // if(current.left) Math.min(this.minDepth(current.left));
-    // // recurse right and get min count, if possible
-    // if(current.right) Math.min(this.minDepth(current.right));
+      if (current.left) {
+        stack.push(current.left);
+        leftDepth++;
+      }
+      if (current.right) {
+        stack.push(current.right);
+        rightDepth++;
+      }
+    }
 
-    // return count;
+    return minDepth;
   }
 
   /** maxDepth(): return the maximum depth of the tree -- that is,
    * the length of the longest path from the root to a leaf. */
 
   maxDepth(current = this.root) {
+    // Solved with recursion
     if (!current) return 0;
 
     return Math.max(
       this.maxDepth(current.left),
       this.maxDepth(current.right)
     ) + 1;
+
+    // TODO: Solved with stack and iteration
   }
 
   /** maxSum(): return the maximum sum you can obtain by traveling along a path in the tree.
@@ -78,7 +94,7 @@ class BinaryTree {
 
     return minVal === 0? null : minVal;
 
-    // TODO: redo with stack, with queue class
+    // TODO: Solve with stack and with queue class
   }
 
   /** Further study!
