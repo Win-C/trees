@@ -17,23 +17,23 @@ class BinaryTree {
    * the length of the shortest path from the root to a leaf. */
 
   minDepth() {
-    let count = 0;
+    if (!this.root) return 0;
+    
+    let count = 1;
 
-    let toVisitStack = [this.root];
-
-    while (toVisitStack.length) {
-      let current = toVisitStack.pop();
-
-      if (!current) {
-        return count;
-      } else {
-        count++;
-        if (!current.left && !current.right) return count;
-        toVisitStack.push(current.left);
-        // TODO: need to pick the shorter left or right
-        // toVisitStack.push(current.right);
+    function _minDepth(current){
+      // go through all the children for a node
+      for(let child of current.children){
+        // add a count for the child
+        count++
+        if(child.children.length > 0){
+          // recurse with the child as the root, grabbing the min value
+          Math.min(_minDepth(child));
+        }
       }
     }
+
+    return _minDepth(this.root);
   }
 
   /** maxDepth(): return the maximum depth of the tree -- that is,

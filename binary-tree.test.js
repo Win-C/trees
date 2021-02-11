@@ -24,19 +24,19 @@ beforeEach(function() {
   largeTree = new BinaryTree(root);
 });
 
-describe("minDepth", function() {
-  it("handles simple trees", function() {
-    expect(smallTree.minDepth()).toBe(2);
-  });
+// describe("minDepth", function() {
+//   it("handles simple trees", function() {
+//     expect(smallTree.minDepth()).toBe(2);
+//   });
 
-  it("handles more complex trees", function() {
-    expect(largeTree.minDepth()).toBe(2);
-  });
+//   it("handles more complex trees", function() {
+//     expect(largeTree.minDepth()).toBe(2);
+//   });
 
-  it("handles empty trees", function() {
-    expect(emptyTree.minDepth()).toBe(0);
-  });
-});
+//   it("handles empty trees", function() {
+//     expect(emptyTree.minDepth()).toBe(0);
+//   });
+// });
 
 // describe("maxDepth", function() {
 //   it("handles simple trees", function() {

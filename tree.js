@@ -14,26 +14,25 @@ class Tree {
 
   /** sumValues(): add up all of the values in the tree. */
 
-  sumValues() {
+  sumValues(current = this.root, sum = this.root ? this.root.val : 0) {
     // Solve with recursion:
-    if (!this.root) return 0;
+    if (!current) return 0;
 
-    let sum = this.root.val;
-    
-    function _sumValues(current){
-      for (let child of current.children) {
-        sum += child.val;
-        if (child.children.length > 0){
-          _sumValues(child);
-        }
+    // hidden base case: go through all the children
+    for (let child of current.children) {
+      // for this child, add node value to the sum
+      sum += child.val;
+      // if there are children, recurse with child as the root
+      if (child.children.length > 0) {
+        return this.sumValues(child, sum);
       }
     }
 
-    _sumValues(this.root)
     return sum;
 
     // Solved with iteration:
-    // let toVisitStack = [current];
+    // let sum = 0;
+    // let toVisitStack = [this.root];
 
     // while(toVisitStack.length){
     //   let current = toVisitStack.pop();
@@ -55,14 +54,14 @@ class Tree {
     // Solved with recursion:
     let count = 0;
 
-    if(!this.root) return 0;
+    if (!this.root) return 0;
 
-    if(this.root.val % 2 === 0) count++;
+    if (this.root.val % 2 === 0) count++;
 
-    function _countEvens(current){
-      for (let child of current.children){
-        if(child.val % 2 === 0) count++;
-        if (child.children.length > 0){
+    function _countEvens(current) {
+      for (let child of current.children) {
+        if (child.val % 2 === 0) count++;
+        if (child.children.length > 0) {
           _countEvens(child)
         }
       }
@@ -96,14 +95,14 @@ class Tree {
     // Solved with recursion:
     let count = 0;
 
-    if(!this.root) return 0;
+    if (!this.root) return 0;
 
-    if(this.root.val > lowerBound) count++;
+    if (this.root.val > lowerBound) count++;
 
-    function _numGreater(current){
-      for(let child of current.children){
-        if(child.val > lowerBound) count++;
-        if(child.children.length > 0){
+    function _numGreater(current) {
+      for (let child of current.children) {
+        if (child.val > lowerBound) count++;
+        if (child.children.length > 0) {
           _numGreater(child);
         }
       }
