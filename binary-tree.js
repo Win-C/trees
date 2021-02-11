@@ -16,45 +16,67 @@ class BinaryTree {
   /** minDepth(): return the minimum depth of the tree -- that is,
    * the length of the shortest path from the root to a leaf. */
 
-  minDepth() {
-    if (!this.root) return 0;
-    
-    let count = 1;
+  minDepth(current = this.root) {
+    if (!current) return 0;
 
-    function _minDepth(current){
-      // go through all the children for a node
-      for(let child of current.children){
-        // add a count for the child
-        count++
-        if(child.children.length > 0){
-          // recurse with the child as the root, grabbing the min value
-          Math.min(_minDepth(child));
-        }
-      }
-    }
+    return Math.min(
+      this.minDepth(current.left),
+      this.minDepth(current.right)
+    ) + 1;
 
-    return _minDepth(this.root);
+    // NOTE: this works only because of test tree setup
+    // messier fn signature with current = this.root, count = this.root? 1 : 0
+    // // add a count for the child
+    // count++;
+
+    // // recurse left and get min count, if possible
+    // if(current.left) Math.min(this.minDepth(current.left));
+    // // recurse right and get min count, if possible
+    // if(current.right) Math.min(this.minDepth(current.right));
+
+    // return count;
   }
 
   /** maxDepth(): return the maximum depth of the tree -- that is,
    * the length of the longest path from the root to a leaf. */
 
-  maxDepth() {
+  maxDepth(current = this.root) {
+    if (!current) return 0;
 
+    return Math.max(
+      this.maxDepth(current.left),
+      this.maxDepth(current.right)
+    ) + 1;
   }
 
   /** maxSum(): return the maximum sum you can obtain by traveling along a path in the tree.
    * The path doesn't need to start at the root, but you can't visit a node more than once. */
 
-  maxSum() {
+  maxSum(current = this.root, sum = 0) {
+    // if(!current) return 0;
 
+    // sum += current.val;
+
+    // return sum += Math.max(
+    //   this.maxSum(current.left),
+    //   this.maxDepth(current.right)
+    // );
   }
 
   /** nextLarger(lowerBound): return the smallest value in the tree
    * which is larger than lowerBound. Return null if no such value exists. */
 
-  nextLarger(lowerBound) {
+  nextLarger(lowerBound, current = this.root, closest = Infinity) {
+    if(!current) return closest === Infinity ? null : closest;
 
+    if (current.val > lowerBound && current.val < closest) closest = current.val;
+
+    let minVal = Math.min(
+      this.nextLarger(lowerBound, current.left, closest),
+      this.nextLarger(lowerBound, current.right, closest)
+    );
+
+    return minVal === 0? null : minVal;
   }
 
   /** Further study!
